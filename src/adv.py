@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -32,6 +33,27 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+category = ''
+
+
+# Ensure User Selects Valide Category
+while( len( category ) < 1 ):
+
+    category = input( "\nEnter Character Category:\n  Warrior\n  Mage\n  Theif\n-->  " ).lower()
+
+    if category != "warrior" and category != "mage" and category != "theif":
+        print('\n****************\nInvalid Category\n****************')
+        category = ''
+
+# Create Player
+player = Player(
+    input( "\nEnter Chacter Name: " ),
+    category
+)
+
+player.current_room = room["outside"]
+
+print( player )
 #
 # Main
 #
