@@ -118,6 +118,14 @@ while playing:
             print(" \'n\' or \'north\' to move north\n \'s\' or \'south\' to move south")
             print(" \'w\' or \'west\' to move west\n \'e\' or \'east\' to move east")
             print(" \'l\' or \'look\' to look for items in a room")
+            print(" \'i\' or \'inventory\' to look for items in your inventory")
+            print(" \'g\' or \'grab\' to add item from room to your inventory")
+            print(" \'d\' or \'drop\' to remove item form inventory and put in room")
+
+            print("\n*******************************************************************")
+            print("\'d\' / \'g\' or \'drop\' / \'grab\' can be used with specific items:")
+            print("\n d item_name, drop item_name, g item_name, grab item_name")
+            print("\n*******************************************************************")
 
             input( "\n hit any key to continue..." )
 
