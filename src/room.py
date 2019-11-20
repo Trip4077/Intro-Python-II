@@ -2,8 +2,15 @@
 # description attributes.
 class Room:
     def __init__(self, name, description):
+        # Room details
         self.name = name
         self.description = description
+        
+        # Adjacant rooms
+        self.n_to = "Solid Wall"
+        self.s_to = "Solid Wall"
+        self.e_to = "Solid Wall"
+        self.w_to = "Solid Wall"
 
     def __str__(self):
-        return "Room: { name: %s, description: %s }" % (self.name, self.description)
+        return f"Room: \n  name: {self.name}, \n  description: {self.description}"
