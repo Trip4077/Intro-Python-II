@@ -91,18 +91,14 @@ playing = True
 wrapper = textwrap.TextWrapper(width=70, break_long_words=False)
 
 while playing:
-    # Format and Display Turn Infomation
+    
     print( '\n' + wrapper.fill( f"{player.name}\'s current location is {player.current_room.name}. " + player.current_room.description ) )
 
     # Get User Command
     command = input( "\nSelect Action\n------> " )
 
-    # Determine if single or multiple arguments
     if (" " in command) == True:
-
-        # Split arguments into command and item
         commands = command.split(" ")
-        command[0].lower()
         
         if commands[0] == 'g' or commands[0] == 'grab':
             player.grab_specific( commands[1] )
@@ -111,7 +107,6 @@ while playing:
             player.drop_specific( commands[1] )
 
     else:
-        
         command.lower()
 
         if command == 'q' or command == "quit":

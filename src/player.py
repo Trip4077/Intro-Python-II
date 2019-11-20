@@ -56,7 +56,7 @@ class Player:
                     self.drop( item_to_drop )
                     break
                 elif index == len( self.items ) - 1:
-                    print( f"{item_to_drop} not found in {self..name}\'s inventory" )
+                    print( f"\n{item_to_drop} not found in {self.name}\'s inventory" )
 
 
     def look(self):
