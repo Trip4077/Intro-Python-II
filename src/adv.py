@@ -77,7 +77,7 @@ player = Player(
     category
 )
 
-# Spawn Player
+# Spawn Player/
 # Make a new player object that is currently in the 'outside' room.
 player.current_room = room["outside"]
 
@@ -95,37 +95,61 @@ while playing:
 
     # Get User Command
     command = input( "\nSelect Action\n------> " )
-    command.lower()
 
-    if command == 'q' or command == "quit":
-        print("\n------> Game Over <------")
-        break
+    if (" " in command) == True:
+        commands = command.split(" ")
+        
+        if commands[0] == 'g' or commands[0] == 'grab':
+            for index, item in enumerate( player.current_room.items, start=0 ):
+                if commands[1].lower() == item.name.lower():
+                    player.grab( commands[1] )
+                    break
+                elif index == len( player.current_room.items ):
+                     print( f"{commands[1]} not found in {player.current_room.name}" )
 
-    elif command == "c" or command == "commands":
-        print("\n \'q\' or \'quit\' to end game")
-        print(" \'n\' or \'north\' to move north\n \'s\' or \'south\' to move south")
-        print(" \'w\' or \'west\' to move west\n \'e\' or \'east\' to move east")
-        print(" \'l\' or \'look\' to look for items in a room")
+        elif commands[0] == 'd' or commands[0] == 'drop':
+            if not len( player.items ) > 0:
+                print( f"\n{commands[1]} not found in {player.name}\'s inventory'" )
 
-        input( "\n hit any key to continue..." )
 
-    elif command == "i" or command == "inventory":
-        player.show_inventory()
-
-    elif command == "l" or command == "look":
-        player.look()
-    
-    elif command == "g" or command == "grab":
-        player.grab()
-
-    elif command == "d" or command == "drop":
-        player.drop()
-
-    elif command == "n" or command == "north" or command == "s" or command == "south":
-        player.move_rooms( command[0] )
-
-    elif command == "e" or command == "right" or command == "w" or command == "left":
-        player.move_rooms( command[0] )
+            for item in player.items:
+                if commands[1].lower() == item.name.lower():
+                    player.drop( commands[1] )
+                    break
 
     else:
-        print( "\n-----> Enter a valid command; use \'c\' or \'commands\' for full list" )
+
+        command.lower()
+
+        if command == 'q' or command == "quit":
+            print("\n------> Game Over <------")
+            break
+
+        elif command == "c" or command == "commands":
+            print("\n \'q\' or \'quit\' to end game")
+            print(" \'n\' or \'north\' to move north\n \'s\' or \'south\' to move south")
+            print(" \'w\' or \'west\' to move west\n \'e\' or \'east\' to move east")
+            print(" \'l\' or \'look\' to look for items in a room")
+
+            input( "\n hit any key to continue..." )
+
+        elif command == "i" or command == "inventory":
+            player.show_inventory()
+
+        elif command == "l" or command == "look":
+            player.look()
+        
+        elif command == "g" or command == "grab":
+            player.grab()
+
+        elif command == "d" or command == "drop":
+            player.drop()
+
+        elif command == "n" or command == "north" or command == "s" or command == "south":
+            player.move_rooms( command[0] )
+
+        elif command == "e" or command == "right" or command == "w" or command == "left":
+            player.move_rooms( command[0] )
+
+        else:
+            print( "\n-----> Enter a valid command; use \'c\' or \'commands\' for full list" )

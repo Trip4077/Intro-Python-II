@@ -11,8 +11,9 @@ class Player:
     def __str__(self):
         return f"Player:\n  name: {self.name}\n  category: {self.category}\n  items: {self.items}\n current_roomm: {self.current_room}"
 
-    def grab(self):
-        item_to_grab = input( "\nWhat item do you want to grab\n------> " )
+    def grab(self, item_to_grab=None):
+        if not item_to_grab:
+            item_to_grab = input( "\nWhat item do you want to grab\n------> " )
 
         for item in self.current_room.items:
  
@@ -22,8 +23,9 @@ class Player:
                 item.on_grab()
                 break
 
-    def drop(self):
-        item_to_drop = input ( "\nWhat item do you want to drop\n------> " )
+    def drop(self, item_to_drop=None):
+        if not item_to_drop:
+            item_to_drop = input ( "\nWhat item do you want to drop\n------> " )
 
         for item in self.items:
 
