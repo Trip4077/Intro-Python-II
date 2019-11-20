@@ -23,6 +23,18 @@ class Player:
                 item.on_grab()
                 break
 
+    def grab_specific(self, item_to_grab):
+        if not len( self.current_room.items ) > 0:
+            print( f"\n{item_to_grab} not found in {self.current_room.name}" )
+
+        for index, item in enumerate( self.current_room.items, start=0 ):
+            if item_to_grab.lower() == item.name.lower():
+                self.grab( item_to_grab )
+                break
+            elif index == len( self.current_room.items ):
+                print( f"{item_to_grab} not found in {self.current_room.name}" )
+
+    
     def drop(self, item_to_drop=None):
         if not item_to_drop:
             item_to_drop = input ( "\nWhat item do you want to drop\n------> " )
@@ -34,6 +46,18 @@ class Player:
                 self.items.remove( item )
                 item.on_drop()
                 break
+
+    def drop_specific(self, item_to_drop):
+            if not len( self.items ) > 0:
+                print( f"\n{item_to_drop} not found in {self.name}\'s inventory'" )
+
+            for index, item in enumerate( self.items, start=0 ):
+                if item_to_drop.lower() == item.name.lower():
+                    self.drop( item_to_drop )
+                    break
+                elif index == len( self.items ) - 1:
+                    print( f"{item_to_drop} not found in {self..name}\'s inventory" )
+
 
     def look(self):
         print( f"\n{self.name} found:" )
