@@ -2,6 +2,7 @@ import textwrap
 
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -35,8 +36,31 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-category = ''
 
+# Generate Items
+
+item_list = {
+    'sword': Item("Sword", "A swift double bladed weapon"),
+    'mace': Item("Mace", "A powerful blunt force weapon"),
+    "wand": Item("Wand", "A magical weapon"),
+    "bow": Item("Bow", "A ranged weapon"),
+    "potion": Item("Potion", "Recover Health"),
+    "gold": Item("Gold", "It's gold")
+}
+
+# Add Items to rooms
+room['outside'].items.append(item_list['sword'])
+room['outside'].items.append(item_list['potion'])
+
+room['foyer'].items.append(item_list['mace'])
+room['foyer'].items.append(item_list['potion'])
+
+room['overlook'].items.append(item_list['bow'])
+
+room['narrow'].items.append(item_list['gold'])
+room['narrow'].items.append(item_list['wand'])
+
+category = ''
 
 # Ensure User Selects Valide Category
 while( len( category ) < 1 ):
@@ -74,6 +98,8 @@ playing = True
 #
 # If the user enters "q", quit the game.
 
+# for formatting terminal text
+
 wrapper = textwrap.TextWrapper(width=70, break_long_words=False)
 
 while playing:
@@ -91,8 +117,19 @@ while playing:
         print("\n \'q\' or \'quit\' to end game")
         print(" \'w\' or \'forward\' to move north\n \'s\' or \'back\' to move south")
         print(" \'a\' or \'left\' to move west\n \'d\' or \'right\' to move east")
+        print(" \'l\' or \'look\' to look for items in a room")
 
         input( "\n hit any key to continue..." )
+
+    elif command == "l" or command == "look":
+        print( f"\n{player.name} found:" )
+
+        if len( player.current_room.items ) > 0:
+            for item in player.current_room.items:
+                print( f"  {item}" )
+
+        else:
+            print("Nothing...")
 
     elif command == "w" or command == "forward":
         if player.current_room.n_to == "Solid Wall":
