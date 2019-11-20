@@ -55,7 +55,6 @@ player = Player(
 # Make a new player object that is currently in the 'outside' room.
 player.current_room = room["outside"]
 
-print( player )
 #
 # Main
 #
@@ -74,11 +73,41 @@ playing = True
 # If the user enters "q", quit the game.
 
 while playing:
+    print(f"\n{player.name}\'s current location is {player.current_room.name}. " + player.current_room.description)
+
+    # Get User Command
     command = input( "\nSelect Action: " )
     command.lower()
 
     if command == 'q' or command == "quit":
-        playing = False
+        print("\n Game Over")
         break
 
-    print( command )
+    elif command == "c" or command == "commands":
+        print("\n \'q\' or \'quit\' to end game")
+        print(" \'w\' or \'forward\' to move north\n \'s\' or \'back\' to move south")
+        print(" \'a\' or \'left\' to move west\n \'d\' or \'right\' to move east")
+
+    elif command == "w" or command == "forward":
+        if player.current_room.n_to == "Solid Wall":
+            print( "\nYou find a solid wall, there might be another way..." )
+        else:
+            player.current_room = player.current_room.n_to
+
+    elif command == "s" or command == "back":
+        if player.current_room.s_to == "Solid Wall":
+            print( "\nYou find a solid wall, there might be another way..." )
+        else:
+            player.current_room = player.current_room.s_to
+
+    elif command == "d" or command == "right":
+        if player.current_room.s_to == "Solid Wall":
+            print( "\nYou find a solid wall, there might be another way..." )
+        else:
+            player.current_room = player.current_room.e_to
+
+    elif command == "a" or command == "left":
+        if player.current_room.w_to == "Solid Wall":
+            print( "\nYou find a solid wall, there might be another way..." )
+        else:
+            player.current_room = player.current_room.w_to
