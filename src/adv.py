@@ -1,3 +1,5 @@
+import textwrap
+
 from room import Room
 from player import Player
 
@@ -39,7 +41,7 @@ category = ''
 # Ensure User Selects Valide Category
 while( len( category ) < 1 ):
 
-    category = input( "\nEnter Character Category:\n  Warrior\n  Mage\n  Theif\n-->  " ).lower()
+    category = input( "\nEnter Character Category:\n>>Warrior\n>>Mage\n>>Theif\n------>  " ).lower()
 
     if category != "warrior" and category != "mage" and category != "theif":
         print('\n****************\nInvalid Category\n****************')
@@ -47,7 +49,7 @@ while( len( category ) < 1 ):
 
 # Create Player
 player = Player(
-    input( "\nEnter Chacter Name: " ),
+    input( "\nEnter Chacter Name\n------> " ),
     category
 )
 
@@ -72,21 +74,25 @@ playing = True
 #
 # If the user enters "q", quit the game.
 
+wrapper = textwrap.TextWrapper(width=70, break_long_words=False)
+
 while playing:
-    print(f"\n{player.name}\'s current location is {player.current_room.name}. " + player.current_room.description)
+    print( '\n' + wrapper.fill( f"{player.name}\'s current location is {player.current_room.name}. " + player.current_room.description ) )
 
     # Get User Command
-    command = input( "\nSelect Action: " )
+    command = input( "\nSelect Action\n------> " )
     command.lower()
 
     if command == 'q' or command == "quit":
-        print("\n Game Over")
+        print("\n------> Game Over <------")
         break
 
     elif command == "c" or command == "commands":
         print("\n \'q\' or \'quit\' to end game")
         print(" \'w\' or \'forward\' to move north\n \'s\' or \'back\' to move south")
         print(" \'a\' or \'left\' to move west\n \'d\' or \'right\' to move east")
+
+        input( "\n hit any key to continue..." )
 
     elif command == "w" or command == "forward":
         if player.current_room.n_to == "Solid Wall":
@@ -111,3 +117,5 @@ while playing:
             print( "\nYou find a solid wall, there might be another way..." )
         else:
             player.current_room = player.current_room.w_to
+    else:
+        print( "\n-----> Enter a valid command; use \'c\' or \'commands\' for full list" )
