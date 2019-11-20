@@ -87,18 +87,6 @@ player.current_room = room["outside"]
 
 # loop control
 playing = True
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
-
-# for formatting terminal text
 
 wrapper = textwrap.TextWrapper(width=70, break_long_words=False)
 
@@ -115,60 +103,29 @@ while playing:
 
     elif command == "c" or command == "commands":
         print("\n \'q\' or \'quit\' to end game")
-        print(" \'w\' or \'forward\' to move north\n \'s\' or \'back\' to move south")
-        print(" \'a\' or \'left\' to move west\n \'d\' or \'right\' to move east")
+        print(" \'n\' or \'north\' to move north\n \'s\' or \'south\' to move south")
+        print(" \'w\' or \'west\' to move west\n \'e\' or \'east\' to move east")
         print(" \'l\' or \'look\' to look for items in a room")
 
         input( "\n hit any key to continue..." )
 
     elif command == "i" or command == "inventory":
-        print( f"\n{player.name}\'s Invertory:" )
-
-        for item in player.items:
-            print( f">> {item}" )
+        player.show_inventory()
 
     elif command == "l" or command == "look":
-        print( f"\n{player.name} found:" )
-
-        if len( player.current_room.items ) > 0:
-            for item in player.current_room.items:
-                print( f">> {item}" )
-
-        else:
-            print("Nothing...")
+        player.look()
     
     elif command == "g" or command == "grab":
-        item_to_grab = input( "\nWhat item do you want to grab\n------> " )
+        player.grab()
 
-        for item in player.current_room.items:
- 
-            if item.name.lower() == item_to_grab.lower():
-                player.items.append(item)
-                player.current_room.items.remove(item)
-                break
+    elif command == "d" or command == "drop":
+        player.drop()
 
-    elif command == "w" or command == "forward":
-        if player.current_room.n_to == "Solid Wall":
-            print( "\nYou find a solid wall, there might be another way..." )
-        else:
-            player.current_room = player.current_room.n_to
+    elif command == "n" or command == "north" or command == "s" or command == "south":
+        player.move_rooms( command[0] )
 
-    elif command == "s" or command == "back":
-        if player.current_room.s_to == "Solid Wall":
-            print( "\nYou find a solid wall, there might be another way..." )
-        else:
-            player.current_room = player.current_room.s_to
+    elif command == "e" or command == "right" or command == "w" or command == "left":
+        player.move_rooms( command[0] )
 
-    elif command == "d" or command == "right":
-        if player.current_room.s_to == "Solid Wall":
-            print( "\nYou find a solid wall, there might be another way..." )
-        else:
-            player.current_room = player.current_room.e_to
-
-    elif command == "a" or command == "left":
-        if player.current_room.w_to == "Solid Wall":
-            print( "\nYou find a solid wall, there might be another way..." )
-        else:
-            player.current_room = player.current_room.w_to
     else:
         print( "\n-----> Enter a valid command; use \'c\' or \'commands\' for full list" )
