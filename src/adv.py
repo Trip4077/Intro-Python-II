@@ -121,15 +121,31 @@ while playing:
 
         input( "\n hit any key to continue..." )
 
+    elif command == "i" or command == "inventory":
+        print( f"\n{player.name}\'s Invertory:" )
+
+        for item in player.items:
+            print( f">> {item}" )
+
     elif command == "l" or command == "look":
         print( f"\n{player.name} found:" )
 
         if len( player.current_room.items ) > 0:
             for item in player.current_room.items:
-                print( f"  {item}" )
+                print( f">> {item}" )
 
         else:
             print("Nothing...")
+    
+    elif command == "g" or command == "grab":
+        item_to_grab = input( "\nWhat item do you want to grab\n------> " )
+
+        for item in player.current_room.items:
+ 
+            if item.name.lower() == item_to_grab.lower():
+                player.items.append(item)
+                player.current_room.items.remove(item)
+                break
 
     elif command == "w" or command == "forward":
         if player.current_room.n_to == "Solid Wall":
