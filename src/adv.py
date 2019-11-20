@@ -51,6 +51,8 @@ player = Player(
     category
 )
 
+# Spawn Player
+# Make a new player object that is currently in the 'outside' room.
 player.current_room = room["outside"]
 
 print( player )
@@ -58,8 +60,8 @@ print( player )
 # Main
 #
 
-# Make a new player object that is currently in the 'outside' room.
-
+# loop control
+playing = True
 # Write a loop that:
 #
 # * Prints the current room name
@@ -70,3 +72,13 @@ print( player )
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+while playing:
+    command = input( "\nSelect Action: " )
+    command.lower()
+
+    if command == 'q' or command == "quit":
+        playing = False
+        break
+
+    print( command )
